@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "ESNEXT",
+    "target": "es6",
+    "allowJs": true,
+    "paths": {
+        "mini-signals": [
+          "node_modules/resource-loader/typings/mini-signals.d.ts"
+        ]
+    },
+    "baseUrl": "./",
+  },
+  "files": ["src/index.ts"]
+}
