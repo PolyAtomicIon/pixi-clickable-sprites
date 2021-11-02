@@ -536,6 +536,28 @@ eval("\n\nexports.decode = exports.parse = __webpack_require__(/*! ./decode */ \
 
 /***/ }),
 
+/***/ "./src/CatMoveSample.ts":
+/*!******************************!*\
+  !*** ./src/CatMoveSample.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ CatMoveSample)\n/* harmony export */ });\n/* harmony import */ var pixi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/dist/esm/pixi.js\");\n/* harmony import */ var _Keyboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Keyboard */ \"./src/Keyboard.ts\");\n\r\n\r\nclass CatMoveSample {\r\n    constructor(app) {\r\n        this.velocity = { vx: 0, vy: 0 };\r\n        this.app = app;\r\n        this.setupKeyboardEvent();\r\n    }\r\n    start() {\r\n        pixi_js__WEBPACK_IMPORTED_MODULE_0__.Loader.shared.add(\"icon/cat.png\")\r\n            .load(this.setup.bind(this));\r\n    }\r\n    setup() {\r\n        let cat = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Sprite(pixi_js__WEBPACK_IMPORTED_MODULE_0__.utils.TextureCache[\"icon/cat.png\"]);\r\n        this.app.stage.addChild(cat);\r\n        this.app.ticker.add(delta => {\r\n            cat.x += 1 * this.velocity.vx * delta;\r\n            cat.y += 1 * this.velocity.vy * delta;\r\n        });\r\n    }\r\n    setupKeyboardEvent() {\r\n        this.up = new _Keyboard__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"ArrowUp\");\r\n        this.down = new _Keyboard__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"ArrowDown\");\r\n        this.left = new _Keyboard__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"ArrowLeft\");\r\n        this.right = new _Keyboard__WEBPACK_IMPORTED_MODULE_1__[\"default\"](\"ArrowRight\");\r\n        this.up.setupEvent(this.refreshVelocity.bind(this, 0, -1), this.refreshVelocity.bind(this, 0, 1));\r\n        this.down.setupEvent(this.refreshVelocity.bind(this, 0, 1), this.refreshVelocity.bind(this, 0, -1));\r\n        this.left.setupEvent(this.refreshVelocity.bind(this, -1, 0), this.refreshVelocity.bind(this, 1, 0));\r\n        this.right.setupEvent(this.refreshVelocity.bind(this, 1, 0), this.refreshVelocity.bind(this, -1, 0));\r\n    }\r\n    refreshVelocity(vx, vy) {\r\n        this.velocity.vx += vx;\r\n        this.velocity.vy += vy;\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack://pixi_ts_webpack/./src/CatMoveSample.ts?");
+
+/***/ }),
+
+/***/ "./src/Keyboard.ts":
+/*!*************************!*\
+  !*** ./src/Keyboard.ts ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Keyboard)\n/* harmony export */ });\nclass Keyboard {\r\n    constructor(key) {\r\n        this.isDown = false;\r\n        this.isUp = true;\r\n        this.key = key;\r\n        window.addEventListener(\"keydown\", this.downHandler.bind(this), false);\r\n        window.addEventListener(\"keyup\", this.upHandler.bind(this), false);\r\n    }\r\n    setupEvent(press, release) {\r\n        this.pressCallback = press;\r\n        this.releaseCallback = release;\r\n    }\r\n    downHandler(event) {\r\n        event.preventDefault();\r\n        if (event.key !== this.key)\r\n            return;\r\n        if (this.isUp && this.pressCallback) {\r\n            this.pressCallback();\r\n        }\r\n        this.isDown = true;\r\n        this.isUp = false;\r\n    }\r\n    upHandler(event) {\r\n        event.preventDefault();\r\n        if (event.key !== this.key)\r\n            return;\r\n        if (this.isDown && this.releaseCallback) {\r\n            this.releaseCallback();\r\n        }\r\n        this.isDown = false;\r\n        this.isUp = true;\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack://pixi_ts_webpack/./src/Keyboard.ts?");
+
+/***/ }),
+
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
@@ -543,7 +565,7 @@ eval("\n\nexports.decode = exports.parse = __webpack_require__(/*! ./decode */ \
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var pixi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/dist/esm/pixi.js\");\n\r\nconst app = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Application({\r\n    width: 256,\r\n    height: 256,\r\n    antialias: true,\r\n    backgroundAlpha: 1,\r\n    resolution: 1\r\n});\r\ndocument.body.appendChild(app.view);\r\npixi_js__WEBPACK_IMPORTED_MODULE_0__.Loader.shared.add(\"icon/cat.png\")\r\n    .load(setup);\r\nfunction setup() {\r\n    let cat = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Sprite(pixi_js__WEBPACK_IMPORTED_MODULE_0__.utils.TextureCache[\"icon/cat.png\"]);\r\n    app.stage.addChild(cat);\r\n    let velocity = { vx: 1, vy: 1 };\r\n    app.ticker.add(delta => {\r\n        cat.x += 1 * velocity.vx * delta;\r\n        cat.y += 1 * velocity.vy * delta;\r\n    });\r\n}\r\n// sample1\r\n// let dungeon = new DungeonSample(app);\r\n// dungeon.start();\r\n\n\n//# sourceURL=webpack://pixi_ts_webpack/./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var pixi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/dist/esm/pixi.js\");\n/* harmony import */ var _CatMoveSample__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CatMoveSample */ \"./src/CatMoveSample.ts\");\n\r\n\r\nconst app = new pixi_js__WEBPACK_IMPORTED_MODULE_0__.Application({\r\n    width: 256,\r\n    height: 256,\r\n    antialias: true,\r\n    backgroundAlpha: 1,\r\n    resolution: 1\r\n});\r\ndocument.body.appendChild(app.view);\r\n// sample1\r\n// let dungeon = new DungeonSample(app);\r\n// dungeon.start();\r\n// sample2\r\nlet catMove = new _CatMoveSample__WEBPACK_IMPORTED_MODULE_1__[\"default\"](app);\r\ncatMove.start();\r\n\n\n//# sourceURL=webpack://pixi_ts_webpack/./src/index.ts?");
 
 /***/ }),
 
